@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  user_service:
+    build: ./services/user_service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/user_service:/app
+    depends_on:
+      - postgres_db
+    environment:
+      - DB_HOST=postgres_db
+      - DB_NAME=astrotalk_users
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+
+  chat_service:
+    build: ./services/chat_service
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./services/chat_service:/app
+
+  postgres_db:
+    image: postgres:15
+    container_name: astrotalk_postgres
+    environment:
+      POSTGRES_DB: astrotalk_users
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
