@@ -14,6 +14,22 @@ services:
       - DB_NAME=astrotalk_users
       - DB_USER=postgres
       - DB_PASSWORD=postgres
+  
+  astrologer_service:
+    build: ./services/astrologer_service
+    container_name: astrologer_service
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./services/astrologer_service:/app
+    depends_on:
+      - postgres_db
+    environment:
+      - DB_HOST=postgres_db
+      - DB_NAME=astrotalk_astrologers
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+
 
   chat_service:
     build: ./services/chat_service
