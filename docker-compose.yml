@@ -14,6 +14,7 @@ services:
       - DB_NAME=astrotalk_users
       - DB_USER=postgres
       - DB_PASSWORD=postgres
+      - JWT_SIGNING_KEY=super-secret-signing-key-change-me
   
   astrologer_service:
     build: ./services/astrologer_service
@@ -29,6 +30,7 @@ services:
       - DB_NAME=astrotalk_astrologers
       - DB_USER=postgres
       - DB_PASSWORD=postgres
+      - JWT_SIGNING_KEY=super-secret-signing-key-change-me
 
 
   chat_service:
